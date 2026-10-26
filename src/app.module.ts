@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EmployeesModule } from './modules/employees/employees.module';
 
 
 @Module({
@@ -13,7 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: true
     }),
-    UserModule
+    EmployeesModule
   ],
   controllers: [],
   providers: [],
