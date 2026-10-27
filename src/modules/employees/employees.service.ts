@@ -45,4 +45,24 @@ export class EmployeesService {
         return this.employeesRepository.delete(id);
     }
 
+    async filterEmployees(filters: { name?: string, department?: string }): Promise<Employees[]> {
+        const query = this.employeesRepository.createQueryBuilder('employees');
+
+        query.where('1 = 1');
+
+        if (filters.name) {
+            query.andWhere('employees.name ILIKE :name', {
+                name: `%${filters.name}%`
+            })
+        }
+
+        if (filters.department) {
+            query.andWhere('employees.department ILIKE :department', {
+                department: `%${filters.department}%`
+            })
+        }
+
+        return query.getMany();
+    }
+
 }

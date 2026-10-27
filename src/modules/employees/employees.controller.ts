@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { Employees } from './entities/employees.entitiy';
 
@@ -16,6 +16,14 @@ export class EmployeesController {
         return this.employeesService.getAllEmployees();
     }
 
+    @Get('search')
+    async filterEmployees(
+        @Query('name') name?: string,
+        @Query('department') department?: string,
+    ): Promise<Employees[]> {
+        return this.employeesService.filterEmployees({ name, department });
+    }
+
     @Get(':id')
     async getEmployeeById(@Param('id') id: string) {
         return this.employeesService.getEmployeeById(Number(id));
@@ -30,4 +38,5 @@ export class EmployeesController {
     async deleteEmployee(@Param('id') id: string) {
         return this.employeesService.deleteEmployee(Number(id))
     }
+
 }
